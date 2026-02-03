@@ -85,12 +85,12 @@ body {
 
 .letter-sticker {
     position: absolute;
-    width: 200px;
+    width: 600px;
     height: auto;
     border-radius: 15px;
     cursor: pointer;
     transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    z-index: 1005;
+    /* z-index: 1005; */
     transform: scale(0);
     opacity: 0;
 }
@@ -102,14 +102,15 @@ body {
 
 .letter-sticker.shrunk-corner {
     position: fixed;
-    top: 20px;
-    right: 20px;
+    top: 40px;
+    right: 80px;
     width: 100px;
     border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    /* box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); */
 }
 
 .proposal-text {
+    padding-top: 30px;
     font-size: 3.5rem;
     font-weight: 700;
     color: var(--deep-pink);
@@ -199,6 +200,16 @@ body.success-bg {
         width: 300px;
     }
 
+    .letter-sticker {
+        width: 400px;
+    }
+
+    .letter-sticker.shrunk-corner {
+        top: 20px;
+        right: 40px;
+        width: 80px;
+    }
+
     .proposal-text {
         font-size: 2.8rem;
     }
@@ -213,9 +224,20 @@ body.success-bg {
         width: 250px;
     }
 
+    .letter-sticker {
+        width: 90vw;
+    }
+
+    .letter-sticker.shrunk-corner {
+        top: 10px;
+        right: 20px;
+        width: 60px;
+    }
+
     .proposal-text {
         font-size: 2rem;
         margin-bottom: 2rem;
+        padding-top: 15px;
     }
 
     .button-group {
