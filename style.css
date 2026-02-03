@@ -380,7 +380,7 @@ body.ashy-mode .heart {
     box-shadow: 0 6px 15px rgba(255, 77, 109, 0.4);
 }
 
-.heart-icon {
+.explorer-heart-btn {
     width: 70px;
     height: 70px;
     background-color: white;
@@ -397,6 +397,11 @@ body.ashy-mode .heart {
 .explorer-heart-btn:hover {
     transform: scale(1.1);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.heart-icon {
+    font-size: 2rem;
+    color: #e91e63;
 }
 
 /* Letter Styling */
