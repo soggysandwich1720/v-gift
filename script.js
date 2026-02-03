@@ -211,13 +211,25 @@ document.addEventListener('DOMContentLoaded', () => {
         let currentStageIndex = 0;
         const explorerStages = [
             { mainText: "Hey Are You There?", subText: "Click On The Heart Sign To Explore More" },
-            { mainText: "I have a lot to tell you...", subText: "Keep clicking to find out 💖" },
-            { mainText: "Every moment with you is a gift.", subText: "You mean the world to me 🌹" },
-            { mainText: "Ready for the final surprise?", subText: "One last click... ❤️" }
+            { mainText: "I have a lot to tell you...", subText: "Since the day i met you my life changed..that text on hellotalk which changed my life 💖" },
+            { mainText: "I always remember how i was stuttering..", subText: "i still remember how i was so shy and nervous to even talk to you 🌹" },
+            { mainText: "But you never let me down", subText: "they way you convinced me to talk to you knowing i was nervous...❤️" },
+            { mainText: "Some things can't be forgotten", subText: "those days when we used to talk for hours and hours.. not knowing what to say.. just to hear each others voice..❤️" },
+            { mainText: "Eventually, the inevitable happened", subText: "days after days i fell more for you..getting addicted to you..❤️" },
+            { mainText: "Okay, I won’t take up any more of your time.", subText: "just wanted to let you know that how much i love you..ypu're the sweetest person i've ever met.. ❤️" },
+            { mainText: "And yeah, SORRY..", subText: "sorry for whatever i did..sorry for how i acted..sorry for not being the rukku you wanted..❤️" },
+            { mainText: "But i promise", subText: "i'm trying to be the best for you and i will..till my last breath..❤️" },
+            { mainText: "Manifesting so hard", subText: "i hope this distance between us ends soon..and i get to wake up knowing i live in the same city as you..and i overcome my insecurities..❤️" }
         ];
 
         const openExplorer = () => {
             if (explorerPage.classList.contains('hidden')) {
+                // Always start from the beginning
+                currentStageIndex = 0;
+                explorerMainText.innerText = explorerStages[0].mainText;
+                explorerSubText.innerText = explorerStages[0].subText;
+                explorerCard.style.opacity = '1';
+
                 explorerPage.classList.remove('hidden');
                 letterSticker.classList.add('shrunk-corner');
                 proposalText.style.opacity = '0';

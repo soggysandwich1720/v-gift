@@ -318,9 +318,11 @@ body.ashy-mode .heart {
     text-align: center;
     max-width: 500px;
     width: 90%;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     position: relative;
     transition: opacity 0.4s ease;
+    max-height: 70vh;
+    overflow-y: auto;
 }
 
 .quote-icon {
