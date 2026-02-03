@@ -77,6 +77,18 @@ body {
     width: 400px;
     height: auto;
     border-radius: 20px;
+    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 1005;
+    position: relative;
+}
+
+.main-image.shrunk-corner {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 100px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .proposal-text {
@@ -237,6 +249,104 @@ body.ashy-mode .heart {
     to {
         transform: translateY(110vh);
     }
+}
+
+/* Letter Styling */
+.letter-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    transition: all 0.5s ease;
+    pointer-events: auto;
+}
+
+.letter {
+    position: relative;
+    width: 90%;
+    max-width: 500px;
+    background: #fffafa;
+    padding: 3rem 2rem;
+    z-index: 1001;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    border: 10px solid white;
+    transform: scale(0.8);
+}
+
+.letter-container:not(.hidden) .letter {
+    transform: scale(1);
+}
+
+.letter-content {
+    font-family: 'Dancing Script', cursive;
+    color: #444;
+}
+
+.letter-header {
+    font-size: 2.5rem;
+    color: var(--deep-pink);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.letter-text p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.letter-footer {
+    margin-top: 2rem;
+    text-align: right;
+}
+
+.signature {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--deep-pink);
+    margin-top: 0.5rem;
+}
+
+.xoxo {
+    font-size: 1.5rem;
+    color: var(--primary-pink);
+}
+
+.close-letter {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 2.5rem;
+    color: var(--deep-pink);
+    cursor: pointer;
+    line-height: 1;
+    z-index: 1002;
+}
+
+.hidden {
+    display: none !important;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* GIF Interaction */
+.main-image.clickable {
+    cursor: pointer;
 }
 
 /* Footer styling */
