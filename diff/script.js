@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Change text and state
-        proposalText.innerText = "YAYY!! i love you Prakriti 💖";
+        proposalText.innerText = "YAYY!! i love you too";
         proposalText.classList.add('success-text');
         document.body.classList.add('success-bg');
 
