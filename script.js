@@ -216,10 +216,14 @@ document.addEventListener('DOMContentLoaded', () => {
             { mainText: "But you never let me down", subText: "they way you convinced me to talk to you knowing i was nervous...❤️" },
             { mainText: "Some things can't be forgotten", subText: "those days when we used to talk for hours and hours.. not knowing what to say.. just to hear each others voice..❤️" },
             { mainText: "Eventually, the inevitable happened", subText: "days after days i fell more for you..getting addicted to you..❤️" },
-            { mainText: "Okay, I won’t take up any more of your time.", subText: "just wanted to let you know that how much i love you..ypu're the sweetest person i've ever met.. ❤️" },
+            { mainText: "The pretending lmao", subText: "Funny how i used to drop so obvious hints and you replied with 'ohh it matches with me'..and i used to think why can't she get it that i'm talking about her" },
+            { mainText: "How cute and embarassing it was..", subText: "ofcourse you're the one who's smiling cause i was the one who looked like an idiot at that moment.." },
+            { mainText: "But i don't mind being an idiot", subText: "if i got 7 more lives.. i'll choose to be the same idiot again and again..❤️" },
+            { mainText: "Okay, I won’t take up any more of your time.", subText: "just wanted to let you know that how much i love you..you're the sweetest person i've ever met.. ❤️" },
             { mainText: "And yeah, SORRY..", subText: "sorry for whatever i did..sorry for how i acted..sorry for not being the rukku you wanted..❤️" },
             { mainText: "But i promise", subText: "i'm trying to be the best for you and i will..till my last breath..❤️" },
-            { mainText: "Manifesting so hard", subText: "i hope this distance between us ends soon..and i get to wake up knowing i live in the same city as you..and i overcome my insecurities..❤️" }
+            { mainText: "Manifesting so hard", subText: "i hope this distance between us ends soon..and i get to wake up knowing i live in the same city as you..and i overcome my insecurities..❤️" },
+            { mainText: "Okay this is the last slide i promise", subText: "i tried writing a letter to you..even though i can't express my feelings in words..i hope you get the message❤️" }
         ];
 
         const openExplorer = () => {
@@ -270,6 +274,16 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         };
 
+        const closeExplorer = () => {
+            explorerPage.style.opacity = '0';
+            letterSticker.classList.add('shrunk-corner');
+            proposalText.innerText = "YAYY!! i love you Prakriti 💖";
+            proposalText.style.opacity = '1';
+            setTimeout(() => {
+                explorerPage.classList.add('hidden');
+            }, 500);
+        };
+
         const closeLetter = () => {
             letterContainer.style.opacity = '0';
             letterSticker.classList.add('shrunk-corner');
@@ -283,5 +297,6 @@ document.addEventListener('DOMContentLoaded', () => {
         letterSticker.addEventListener('click', openExplorer);
         explorerHeartBtn.addEventListener('click', updateExplorerContent);
         closeBtn.addEventListener('click', closeLetter);
+        document.getElementById('close-explorer').addEventListener('click', closeExplorer);
     }
 });
