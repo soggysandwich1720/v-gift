@@ -71,18 +71,36 @@ body {
 
 .image-container {
     margin-bottom: 2rem;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .main-image {
     width: 400px;
     height: auto;
     border-radius: 20px;
-    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    z-index: 1005;
-    position: relative;
 }
 
-.main-image.shrunk-corner {
+.letter-sticker {
+    position: absolute;
+    width: 200px;
+    height: auto;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 1005;
+    transform: scale(0);
+    opacity: 0;
+}
+
+.letter-sticker:not(.hidden) {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.letter-sticker.shrunk-corner {
     position: fixed;
     top: 20px;
     right: 20px;
@@ -342,11 +360,6 @@ body.ashy-mode .heart {
     display: none !important;
     opacity: 0;
     pointer-events: none;
-}
-
-/* GIF Interaction */
-.main-image.clickable {
-    cursor: pointer;
 }
 
 /* Footer styling */

@@ -181,46 +181,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // --- Letter Teaser Transition ---
         setTimeout(() => {
-            // Fade out current content slightly or just swap
+            // Keep both: Success bear and letter surprise
+            const letterSticker = document.getElementById('letter-sticker');
+            const mainImg = document.getElementById('main-image');
+
+            letterSticker.src = "https://media.tenor.com/r2mSqYQUKycAAAAi/raf-rafs.gif";
+            letterSticker.classList.remove('hidden');
+
             proposalText.style.opacity = '0';
-            mainImg.style.opacity = '0';
-
             setTimeout(() => {
-                // Update image and text
-                mainImg.src = "https://media.tenor.com/r2mSqYQUKycAAAAi/raf-rafs.gif";
-                mainImg.alt = "Waiting for letter GIF";
                 proposalText.innerText = "oh wait.. seems like a letter for you";
-
-                // Fade back in
                 proposalText.style.opacity = '1';
-                mainImg.style.opacity = '1';
-
-                // Trigger the next step (to be defined: showing the envelope)
                 showEnvelope();
-            }, 1000);
+            }, 500);
         }, 2000);
     });
 
     function showEnvelope() {
         const letterContainer = document.getElementById('letter-container');
-        const mainImg = document.querySelector('.main-image');
+        const letterSticker = document.getElementById('letter-sticker');
         const closeBtn = document.getElementById('close-letter');
         const proposalText = document.getElementById('proposal-text');
-
-        // Make the GIF clickable
-        mainImg.classList.add('clickable');
 
         const toggleLetter = () => {
             if (letterContainer.classList.contains('hidden')) {
                 // Open letter
                 letterContainer.classList.remove('hidden');
-                mainImg.classList.add('shrunk-corner');
+                letterSticker.classList.add('shrunk-corner');
                 proposalText.style.opacity = '0';
                 setTimeout(() => {
                     letterContainer.style.opacity = '1';
                 }, 10);
 
-                // Celebration confetti
                 confetti({
                     particleCount: 100,
                     spread: 70,
@@ -228,21 +220,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     colors: ['#ff4d6d', '#ff8fa3', '#ffffff']
                 });
             } else {
-                // Close letter (if clicking GIF again)
                 closeLetter();
             }
         };
 
         const closeLetter = () => {
             letterContainer.style.opacity = '0';
-            mainImg.classList.remove('shrunk-corner');
+            // Restore context
+            letterSticker.classList.add('shrunk-corner');
+            proposalText.innerText = "YAYY!! i love you Prakriti 💖";
             proposalText.style.opacity = '1';
             setTimeout(() => {
                 letterContainer.classList.add('hidden');
             }, 500);
         };
 
-        mainImg.addEventListener('click', toggleLetter);
+        letterSticker.addEventListener('click', toggleLetter);
         closeBtn.addEventListener('click', closeLetter);
     }
 });
