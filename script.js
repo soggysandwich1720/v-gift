@@ -199,34 +199,67 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showEnvelope() {
         const letterContainer = document.getElementById('letter-container');
+        const explorerPage = document.getElementById('explorer-page');
         const letterSticker = document.getElementById('letter-sticker');
+        const explorerHeartBtn = document.getElementById('explorer-heart-btn');
         const closeBtn = document.getElementById('close-letter');
         const proposalText = document.getElementById('proposal-text');
+        const explorerCard = document.querySelector('.explorer-card');
+        const explorerMainText = document.querySelector('.explorer-main-text');
+        const explorerSubText = document.querySelector('.explorer-sub-text');
 
-        const toggleLetter = () => {
-            if (letterContainer.classList.contains('hidden')) {
-                // Open letter
-                letterContainer.classList.remove('hidden');
+        let currentStageIndex = 0;
+        const explorerStages = [
+            { mainText: "Hey Are You There?", subText: "Click On The Heart Sign To Explore More" },
+            { mainText: "I have a lot to tell you...", subText: "Keep clicking to find out 💖" },
+            { mainText: "Every moment with you is a gift.", subText: "You mean the world to me 🌹" },
+            { mainText: "Ready for the final surprise?", subText: "One last click... ❤️" }
+        ];
+
+        const openExplorer = () => {
+            if (explorerPage.classList.contains('hidden')) {
+                explorerPage.classList.remove('hidden');
                 letterSticker.classList.add('shrunk-corner');
                 proposalText.style.opacity = '0';
                 setTimeout(() => {
-                    letterContainer.style.opacity = '1';
+                    explorerPage.style.opacity = '1';
                 }, 10);
-
-                confetti({
-                    particleCount: 100,
-                    spread: 70,
-                    origin: { y: 0.6 },
-                    colors: ['#ff4d6d', '#ff8fa3', '#ffffff']
-                });
-            } else {
-                closeLetter();
             }
+        };
+
+        const updateExplorerContent = () => {
+            currentStageIndex++;
+            if (currentStageIndex < explorerStages.length) {
+                // Smooth transition between stages
+                explorerCard.style.opacity = '0';
+                setTimeout(() => {
+                    explorerMainText.innerText = explorerStages[currentStageIndex].mainText;
+                    explorerSubText.innerText = explorerStages[currentStageIndex].subText;
+                    explorerCard.style.opacity = '1';
+                }, 400);
+            } else {
+                openLetter();
+            }
+        };
+
+        const openLetter = () => {
+            letterContainer.classList.remove('hidden');
+            setTimeout(() => {
+                letterContainer.style.opacity = '1';
+                explorerPage.style.opacity = '0';
+                setTimeout(() => explorerPage.classList.add('hidden'), 500);
+            }, 10);
+
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#ff4d6d', '#ff8fa3', '#ffffff']
+            });
         };
 
         const closeLetter = () => {
             letterContainer.style.opacity = '0';
-            // Restore context
             letterSticker.classList.add('shrunk-corner');
             proposalText.innerText = "YAYY!! i love you Prakriti 💖";
             proposalText.style.opacity = '1';
@@ -235,7 +268,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 500);
         };
 
-        letterSticker.addEventListener('click', toggleLetter);
+        letterSticker.addEventListener('click', openExplorer);
+        explorerHeartBtn.addEventListener('click', updateExplorerContent);
         closeBtn.addEventListener('click', closeLetter);
     }
 });

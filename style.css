@@ -291,6 +291,77 @@ body.ashy-mode .heart {
     }
 }
 
+/* Explorer Page Styling */
+.explorer-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #e91e63;
+    /* Deep pink from image */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 950;
+    transition: all 0.5s ease;
+    padding: 2rem;
+    opacity: 0;
+}
+
+.explorer-card {
+    background: white;
+    padding: 2rem 3rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+    margin-bottom: 3rem;
+    position: relative;
+    transition: opacity 0.4s ease;
+}
+
+.quote-icon {
+    font-size: 4rem;
+    color: #ffd1dc;
+    display: block;
+    margin-bottom: -10px;
+    line-height: 1;
+}
+
+.explorer-main-text {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.explorer-sub-text {
+    font-size: 1.1rem;
+    color: #666;
+}
+
+.explorer-heart-btn {
+    width: 70px;
+    height: 70px;
+    background-color: white;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.explorer-heart-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
 /* Letter Styling */
 .letter-container {
     position: fixed;
