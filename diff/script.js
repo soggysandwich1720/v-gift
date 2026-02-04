@@ -110,10 +110,6 @@ document.addEventListener('DOMContentLoaded', () => {
     rope.addEventListener('pointerdown', onStart);
     document.addEventListener('pointermove', onMove);
     document.addEventListener('pointerup', onEnd);
-    // Support touches
-    rope.addEventListener('touchstart', (e) => onStart(e), { passive: false });
-    document.addEventListener('touchmove', (e) => onMove(e), { passive: false });
-    document.addEventListener('touchend', onEnd);
 
     // --- Main Page Logic ---
     const noBtn = document.getElementById('no-btn');
