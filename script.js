@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const tick = (now) => {
             const elapsed = now - start;
             const progress = Math.min(elapsed / duration, 1);
-            audio.volume = progress;
+            audio.volume = progress * 0.4;
             if (progress < 1) {
                 requestAnimationFrame(tick);
             }
