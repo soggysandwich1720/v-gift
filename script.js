@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const background = document.getElementById('background');
     const proposalText = document.getElementById('proposal-text');
     const buttonGroup = document.getElementById('button-group');
-    const bgMusic = document.getElementById('bg-music');
+    const bgMusic = document.getElementById('bgm');
     let musicStarted = false;
 
     // Fade in audio helper
@@ -237,7 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let currentStageIndex = 0;
         let musicStarted = false;
-        const bgMusic = document.getElementById('bg-music');
+        const bgMusic = document.getElementById('bgm');
 
         const explorerStages = [
             { mainText: "Hey Are You There?", subText: "Click On The Heart Sign To Explore More" },
