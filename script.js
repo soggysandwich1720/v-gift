@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const tick = (now) => {
             const elapsed = now - start;
             const progress = Math.min(elapsed / duration, 1);
-            audio.volume = progress * 0.4;
+            audio.volume = progress * 0.1;
             if (progress < 1) {
                 requestAnimationFrame(tick);
             }
@@ -151,9 +151,11 @@ document.addEventListener('DOMContentLoaded', () => {
             raindrops.forEach(drop => drop.remove());
         }
 
-        // --- Start Music with Fade-in ---
+        // --- Start Music with Fade-in (0.5s delay) ---
         if (!musicStarted && bgMusic) {
-            fadeInAudio(bgMusic, 3000);
+            setTimeout(() => {
+                fadeInAudio(bgMusic, 4000);
+            }, 500);
             musicStarted = true;
         }
 
