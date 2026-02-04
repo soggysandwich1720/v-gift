@@ -231,6 +231,7 @@ body.success-bg {
 
     .letter-sticker {
         width: 90vw;
+        margin-top: -37px;
     }
 
     .letter-sticker.shrunk-corner {
