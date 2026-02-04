@@ -241,13 +241,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // bgMusic is globally available
 
         const explorerStages = [
-            { mainText: "Still Here? Good! ✨", subText: "The journey is just beginning... click the heart! ❤️" },
-            { mainText: "Life is better with you", subText: "Every moment spent together is a treasure I cherish forever. 🌹" },
-            { mainText: "You're my favorite thought", subText: "I catch myself smiling at nothing, just thinking about you. 😊" },
-            { mainText: "Through thick and thin...", subText: "Whatever comes our way, I'm glad I have you by my side. 🤝" },
-            { mainText: "A world of colors", subText: "You make everything seem brighter and much more beautiful. 🌈" },
-            { mainText: "Just a reminder...", subText: "You are incredibly special and loved more than you know. 🧸" },
-            { mainText: "Almost there!", subText: "I have one final surprise waiting for you... ❤️" }
+            { mainText: "Still Here? Awesome! ✨", subText: "The journey is just beginning... click the heart! ❤️" },
+            { mainText: "Every moment is a gift", subText: "I'm so lucky to have you in my life, making everything special. 🌹" },
+            { mainText: "You're my favorite thought", subText: "Whenever I'm bored, I just start thinking about you and smile. 😊" },
+            { mainText: "Through thick and thin...", subText: "No matter what happens, I'm always going to be by your side. 🤝" },
+            { mainText: "You add color to my world", subText: "Everything seems brighter and happier when you're around. 🌈" },
+            { mainText: "Just a reminder...", subText: "You are truly one of a kind and loved more than you know. 🧸" },
+            { mainText: "One last thing!", subText: "I have a tiny surprise waiting for you right here... ❤️" }
         ];
 
         const openExplorer = () => {
