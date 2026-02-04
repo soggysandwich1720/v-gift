@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // --- Start Music with Fade-in (0.5s delay) ---
         if (!musicStarted && bgMusic) {
             setTimeout(() => {
-                fadeInAudio(bgMusic, 4000);
+                fadeInAudio(bgMusic, 3500);
             }, 500);
             musicStarted = true;
         }
