@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const proposalText = document.getElementById('proposal-text');
     const buttonGroup = document.getElementById('button-group');
     const bgMusic = document.getElementById('bgm');
-    let musicStarted = false;
 
     // Fade in audio helper
     function fadeInAudio(audio, duration = 3000) {
