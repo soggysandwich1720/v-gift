@@ -4,6 +4,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const background = document.getElementById('background');
     const proposalText = document.getElementById('proposal-text');
     const buttonGroup = document.getElementById('button-group');
+    const bgMusic = document.getElementById('bg-music');
+    let musicStarted = false;
+
+    // Fade in audio helper
+    function fadeInAudio(audio, duration = 3000) {
+        audio.volume = 0;
+        audio.play().catch(e => console.log("Music play blocked by browser:", e));
+
+        const start = performance.now();
+        const tick = (now) => {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            audio.volume = progress;
+            if (progress < 1) {
+                requestAnimationFrame(tick);
+            }
+        };
+        requestAnimationFrame(tick);
+    }
 
     // Floating hearts creation
     let currentEmoji = '❤️';
@@ -132,6 +151,12 @@ document.addEventListener('DOMContentLoaded', () => {
             raindrops.forEach(drop => drop.remove());
         }
 
+        // --- Start Music with Fade-in ---
+        if (!musicStarted && bgMusic) {
+            fadeInAudio(bgMusic, 3000);
+            musicStarted = true;
+        }
+
         // Change image to success GIF
         const mainImg = document.querySelector('.main-image');
         if (mainImg) {
@@ -209,6 +234,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const explorerSubText = document.querySelector('.explorer-sub-text');
 
         let currentStageIndex = 0;
+        let musicStarted = false;
+        const bgMusic = document.getElementById('bg-music');
+
         const explorerStages = [
             { mainText: "Hey Are You There?", subText: "Click On The Heart Sign To Explore More" },
             { mainText: "I have a lot to tell you...", subText: "Since the day i met you my life changed..that text on hellotalk which changed my life 💖" },
