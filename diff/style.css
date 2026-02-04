@@ -132,11 +132,13 @@
 
 body {
     font-family: 'Outfit', sans-serif;
-    height: 100vh;
+    min-height: 120vh;
+    /* Make page feel longer */
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
     background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-dark) 100%);
     transition: background 3s ease, filter 3s ease;
 }

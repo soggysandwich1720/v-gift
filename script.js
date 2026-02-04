@@ -224,13 +224,15 @@ document.addEventListener('DOMContentLoaded', () => {
     function moveButton(e) {
         const yesRect = yesBtn.getBoundingClientRect();
         const padding = 20; // Extra space around Yes button
+        const margin = 50; // Safety margin from screen edges
 
         let x, y;
         let attempts = 0;
 
         do {
-            x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-            y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            // Random position within safe boundaries
+            x = margin + Math.random() * (window.innerWidth - noBtn.offsetWidth - margin * 2);
+            y = margin + Math.random() * (window.innerHeight - noBtn.offsetHeight - margin * 2);
             attempts++;
 
             // Check if the new position overlaps with the Yes button's area
