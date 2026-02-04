@@ -1,4 +1,122 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- Rope Pull Logic ---
+    const overlay = document.getElementById('light-switch-overlay');
+    const ropeLineWrapper = document.getElementById('rope-line-wrapper');
+    const rope = document.getElementById('rope-handle');
+    const ropeHint = document.querySelector('.rope-hint');
+    let isDragging = false;
+    let startY = 0;
+    const threshold = 160;
+
+    const onStart = (e) => {
+        isDragging = true;
+        startY = (e.clientY || (e.touches && e.touches[0].clientY));
+        ropeLineWrapper.style.animation = 'none'; // Stop swaying while dragging
+    };
+
+    const onMove = (e) => {
+        if (!isDragging) return;
+        const currentY = (e.clientY || (e.touches && e.touches[0].clientY));
+        const rawDeltaY = currentY - startY; // Pulling DOWN from top
+
+        // Apply visual stretching only if pulling down, otherwise reset
+        const visualDeltaY = rawDeltaY > 0 ? Math.pow(rawDeltaY, 0.82) : 0;
+        const stretchScale = 1 + (visualDeltaY / 400);
+
+        ropeLineWrapper.style.transition = 'none';
+        ropeLineWrapper.style.transform = `scaleY(${stretchScale})`;
+
+        // --- Dynamic Hint Logic ---
+        if (visualDeltaY > threshold * 0.5) {
+            ropeHint.innerText = "c'mon pull it harder";
+        }
+
+        if (visualDeltaY > threshold) {
+            revealPage();
+        }
+    };
+
+    const onEnd = () => {
+        if (!isDragging) return;
+        isDragging = false;
+
+        // --- Elastic Bounce Back ---
+        ropeLineWrapper.style.transition = 'transform 0.8s cubic-bezier(0.34, 1.76, 0.64, 1)';
+        ropeLineWrapper.style.transform = `scaleY(1)`;
+
+        setTimeout(() => {
+            if (!isDragging) {
+                ropeLineWrapper.style.animation = 'elastic-sway 4s ease-in-out infinite alternate';
+            }
+        }, 800);
+    };
+
+    const revealPage = () => {
+        isDragging = false;
+        // Immediate reveal
+        overlay.classList.add('light-on');
+
+        // Launch Balloons!
+        launchBalloons();
+
+        setTimeout(() => {
+            overlay.style.display = 'none';
+        }, 3000);
+
+        document.removeEventListener('pointermove', onMove);
+        document.removeEventListener('pointerup', onEnd);
+    };
+
+    function launchBalloons() {
+        const container = document.createElement('div');
+        container.classList.add('balloon-container');
+        document.body.appendChild(container);
+
+        const balloonEmojis = ['❤️', '💖', '💝', '💗', '💓'];
+        // Responsive balloon count
+        const balloonCount = window.innerWidth < 768 ? 60 : 200;
+
+        for (let i = 0; i < balloonCount; i++) {
+            const balloon = document.createElement('div');
+            balloon.classList.add('balloon');
+
+            const heart = document.createElement('div');
+            heart.classList.add('balloon-heart');
+            heart.innerText = balloonEmojis[Math.floor(Math.random() * balloonEmojis.length)];
+
+            const string = document.createElement('div');
+            string.classList.add('balloon-string');
+
+            balloon.appendChild(heart);
+            balloon.appendChild(string);
+
+            // Randomize position and animation
+            const left = Math.random() * 100;
+            const duration = 2.5 + Math.random() * 2.5;
+            const delay = Math.random() * 2;
+            const rotate = (Math.random() - 0.5) * 60;
+
+            balloon.style.left = `${left}vw`;
+            balloon.style.setProperty('--duration', `${duration}s`);
+            balloon.style.setProperty('--rotate', `${rotate}deg`);
+            balloon.style.animationDelay = `${delay}s`;
+
+            container.appendChild(balloon);
+        }
+
+        // Cleanup after animation
+        setTimeout(() => container.remove(), 10000);
+    }
+
+    rope.addEventListener('pointerdown', onStart);
+    document.addEventListener('pointermove', onMove);
+    document.addEventListener('pointerup', onEnd);
+    // Support touches
+    rope.addEventListener('touchstart', (e) => onStart(e), { passive: false });
+    document.addEventListener('touchmove', (e) => onMove(e), { passive: false });
+    document.addEventListener('touchend', onEnd);
+
+    // --- Main Page Logic ---
     const noBtn = document.getElementById('no-btn');
     const yesBtn = document.getElementById('yes-btn');
     const background = document.getElementById('background');

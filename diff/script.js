@@ -1,4 +1,121 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- Rope Pull Logic ---
+    const overlay = document.getElementById('light-switch-overlay');
+    const ropeLineWrapper = document.getElementById('rope-line-wrapper');
+    const rope = document.getElementById('rope-handle');
+    const ropeHint = document.querySelector('.rope-hint');
+    let isDragging = false;
+    let startY = 0;
+    const threshold = 160;
+
+    const onStart = (e) => {
+        isDragging = true;
+        startY = (e.clientY || (e.touches && e.touches[0].clientY));
+        ropeLineWrapper.style.animation = 'none'; // Stop swaying while dragging
+    };
+
+    const onMove = (e) => {
+        if (!isDragging) return;
+        const currentY = (e.clientY || (e.touches && e.touches[0].clientY));
+        const rawDeltaY = currentY - startY; // Pulling DOWN from top
+
+        // Apply visual stretching only if pulling down, otherwise reset
+        const visualDeltaY = rawDeltaY > 0 ? Math.pow(rawDeltaY, 0.82) : 0;
+        const stretchScale = 1 + (visualDeltaY / 400);
+
+        ropeLineWrapper.style.transition = 'none';
+        ropeLineWrapper.style.transform = `scaleY(${stretchScale})`;
+
+        // --- Dynamic Hint Logic ---
+        if (visualDeltaY > threshold * 0.5) {
+            ropeHint.innerText = "c'mon pull it harder";
+        }
+
+        if (visualDeltaY > threshold) {
+            revealPage();
+        }
+    };
+
+    const onEnd = () => {
+        if (!isDragging) return;
+        isDragging = false;
+
+        // --- Elastic Bounce Back ---
+        ropeLineWrapper.style.transition = 'transform 0.8s cubic-bezier(0.34, 1.76, 0.64, 1)';
+        ropeLineWrapper.style.transform = `scaleY(1)`;
+
+        setTimeout(() => {
+            if (!isDragging) {
+                ropeLineWrapper.style.animation = 'elastic-sway 4s ease-in-out infinite alternate';
+            }
+        }, 800);
+    };
+
+    const revealPage = () => {
+        isDragging = false;
+        // Immediate reveal
+        overlay.classList.add('light-on');
+
+        // Launch Balloons!
+        launchBalloons();
+
+        setTimeout(() => {
+            overlay.style.display = 'none';
+        }, 3000);
+
+        document.removeEventListener('pointermove', onMove);
+        document.removeEventListener('pointerup', onEnd);
+    };
+
+    function launchBalloons() {
+        const container = document.createElement('div');
+        container.classList.add('balloon-container');
+        document.body.appendChild(container);
+
+        const balloonEmojis = ['❤️', '💖', '💝', '💗', '💓'];
+        const balloonCount = 150;
+
+        for (let i = 0; i < balloonCount; i++) {
+            const balloon = document.createElement('div');
+            balloon.classList.add('balloon');
+
+            const heart = document.createElement('div');
+            heart.classList.add('balloon-heart');
+            heart.innerText = balloonEmojis[Math.floor(Math.random() * balloonEmojis.length)];
+
+            const string = document.createElement('div');
+            string.classList.add('balloon-string');
+
+            balloon.appendChild(heart);
+            balloon.appendChild(string);
+
+            // Randomize position and animation
+            const left = Math.random() * 100;
+            const duration = 4 + Math.random() * 3;
+            const delay = Math.random() * 2;
+            const rotate = (Math.random() - 0.5) * 40;
+
+            balloon.style.left = `${left}vw`;
+            balloon.style.setProperty('--duration', `${duration}s`);
+            balloon.style.setProperty('--rotate', `${rotate}deg`);
+            balloon.style.animationDelay = `${delay}s`;
+
+            container.appendChild(balloon);
+        }
+
+        // Cleanup after animation
+        setTimeout(() => container.remove(), 10000);
+    }
+
+    rope.addEventListener('pointerdown', onStart);
+    document.addEventListener('pointermove', onMove);
+    document.addEventListener('pointerup', onEnd);
+    // Support touches
+    rope.addEventListener('touchstart', (e) => onStart(e), { passive: false });
+    document.addEventListener('touchmove', (e) => onMove(e), { passive: false });
+    document.addEventListener('touchend', onEnd);
+
+    // --- Main Page Logic ---
     const noBtn = document.getElementById('no-btn');
     const yesBtn = document.getElementById('yes-btn');
     const background = document.getElementById('background');
@@ -180,7 +297,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Change text and state
-        proposalText.innerText = "YAYY!! I love you so much! 💖";
+        proposalText.innerText = "YAYY!! i love you Prakriti 💖";
         proposalText.classList.add('success-text');
         document.body.classList.add('success-bg');
 
@@ -241,13 +358,20 @@ document.addEventListener('DOMContentLoaded', () => {
         // bgMusic is globally available
 
         const explorerStages = [
-            { mainText: "Still Here? Awesome! ✨", subText: "The journey is just beginning... click the heart! ❤️" },
-            { mainText: "Every moment is a gift", subText: "I'm so lucky to have you in my life, making everything special. 🌹" },
-            { mainText: "You're my favorite thought", subText: "Whenever I'm bored, I just start thinking about you and smile. 😊" },
-            { mainText: "Through thick and thin...", subText: "No matter what happens, I'm always going to be by your side. 🤝" },
-            { mainText: "You add color to my world", subText: "Everything seems brighter and happier when you're around. 🌈" },
-            { mainText: "Just a reminder...", subText: "You are truly one of a kind and loved more than you know. 🧸" },
-            { mainText: "One last thing!", subText: "I have a tiny surprise waiting for you right here... ❤️" }
+            { mainText: "Hey Are You There?", subText: "Click On The Heart Sign To Explore More" },
+            { mainText: "I have a lot to tell you...", subText: "Since the day i met you my life changed..that text on hellotalk which changed my life 💖" },
+            { mainText: "I always remember how i was stuttering..", subText: "i still remember how i was so shy and nervous to even talk to you 🌹" },
+            { mainText: "But you never let me down", subText: "they way you convinced me to talk to you knowing i was nervous...❤️" },
+            { mainText: "Some things can't be forgotten", subText: "those days when we used to talk for hours and hours.. not knowing what to say.. just to hear each others voice..❤️" },
+            { mainText: "Eventually, the inevitable happened", subText: "days after days i fell more for you..getting addicted to you..❤️" },
+            { mainText: "The pretending lmao", subText: "Funny how i used to drop so obvious hints and you replied with 'ohh it matches with me'..and i used to think why can't she get it that i'm talking about her" },
+            { mainText: "How cute and embarassing it was..", subText: "ofcourse you're the one who's smiling cause i was the one who looked like an idiot at that moment.." },
+            { mainText: "But i don't mind being an idiot", subText: "if i got 7 more lives.. i'll choose to be the same idiot again and again..❤️" },
+            { mainText: "Okay, I won’t take up any more of your time.", subText: "just wanted to let you know that how much i love you..you're the sweetest person i've ever met.. ❤️" },
+            { mainText: "And yeah, SORRY..", subText: "sorry for whatever i did..sorry for how i acted..sorry for not being the rukku you wanted..❤️" },
+            { mainText: "But i promise", subText: "i'm trying to be the best for you and i will..till my last breath..❤️" },
+            { mainText: "Manifesting so hard", subText: "i hope this distance between us ends soon..and i get to wake up knowing i live in the same city as you..and i overcome my insecurities..❤️" },
+            { mainText: "Okay this is the last slide i promise", subText: "i tried writing a letter to you..even though i can't express my feelings in words..i hope you get the message❤️" }
         ];
 
         const openExplorer = () => {

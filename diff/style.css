@@ -13,6 +13,115 @@
     box-sizing: border-box;
 }
 
+#light-switch-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100lvh;
+    /* Avoid mobile address bar jumps */
+    background: #000;
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    transition: transform 2.5s cubic-bezier(0.45, 0, 0.55, 1) 0.3s;
+}
+
+.rope-container {
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: grab;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2001;
+}
+
+.rope-container:active {
+    cursor: grabbing;
+}
+
+.rope-line {
+    width: 4px;
+    height: 150px;
+    background: repeating-linear-gradient(45deg,
+            #8b4513,
+            #8b4513 5px,
+            #a0522d 5px,
+            #a0522d 10px);
+    border-radius: 2px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.rope-knot {
+    width: 30px;
+    height: 40px;
+    background: #8b4513;
+    border-radius: 40% 40% 60% 60%;
+    margin-top: -5px;
+    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.6);
+    position: relative;
+    max-width: 8vw;
+    /* scale on very small screens */
+}
+
+.rope-knot::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 15px;
+    background: inherit;
+    border-radius: 3px;
+}
+
+.rope-hint {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+    font-size: 1rem;
+    opacity: 0.6;
+    font-family: 'Outfit', sans-serif;
+    pointer-events: none;
+    white-space: nowrap;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+@keyframes elastic-sway {
+    0% {
+        transform: rotate(-3deg) scaleY(1);
+    }
+
+    50% {
+        transform: rotate(3deg) scaleY(1.05);
+    }
+
+    100% {
+        transform: rotate(-3deg) scaleY(1);
+    }
+}
+
+.light-on {
+    transform: translateY(-120%);
+    pointer-events: none;
+}
+
+.rope-line-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform-origin: top center;
+    transition: transform 0.1s linear;
+    animation: elastic-sway 4s ease-in-out infinite alternate;
+}
+
 body {
     font-family: 'Outfit', sans-serif;
     height: 100vh;
@@ -29,7 +138,7 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 100lvh;
     pointer-events: none;
     z-index: 0;
 }
@@ -37,8 +146,59 @@ body {
 .heart {
     position: absolute;
     color: var(--primary-pink);
-    opacity: 0.6;
+    opacity: 0.4;
     animation: drift linear forwards;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* --- Heart Balloons --- */
+.balloon-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 0;
+    pointer-events: none;
+    z-index: 2200;
+}
+
+.balloon {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: balloon-float var(--duration) cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.balloon-heart {
+    font-size: 2.8rem;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+    position: relative;
+    z-index: 2;
+}
+
+.balloon-string {
+    width: 2px;
+    height: 80px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.6), transparent);
+    margin-top: -5px;
+}
+
+@keyframes balloon-float {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-130vh) rotate(var(--rotate));
+        opacity: 0.8;
+    }
 }
 
 @keyframes drift {
@@ -212,6 +372,11 @@ body.success-bg {
 
     .proposal-text {
         font-size: 2.8rem;
+    }
+
+    .balloon-heart {
+        font-size: 2.2rem;
+        /* Scale down balloons on tablets */
     }
 }
 
