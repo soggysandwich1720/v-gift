@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 drop.remove();
             }, 2000);
-        }, 50);
+        }, 100); // 100ms is enough for rain
     }
 
     noBtn.addEventListener('touchstart', (e) => {
@@ -139,17 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // "Yes" button logic
     yesBtn.addEventListener('click', () => {
-        // Clear heartbreak effects if active
-        document.body.classList.remove('ashy-mode');
-        if (rainInterval) {
-            clearInterval(rainInterval);
-            rainInterval = null;
-            // Remove all existing raindrops
-            const raindrops = document.querySelectorAll('.raindrop');
-            raindrops.forEach(drop => drop.remove());
-        }
-
-        // --- Start/Replay Music with Fade-in (0.5s delay) ---
+        // --- 1. Start/Replay Music IMMEDIATELY (Prioritize for mobile) ---
         if (bgMusic) {
             bgMusic.pause();
             bgMusic.currentTime = 0;
@@ -159,6 +149,16 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 fadeInAudio(bgMusic, 3500);
             }, 500);
+        }
+
+        // --- 2. Clear heartbreak effects ---
+        document.body.classList.remove('ashy-mode');
+        if (rainInterval) {
+            clearInterval(rainInterval);
+            rainInterval = null;
+            // Remove all existing raindrops
+            const raindrops = document.querySelectorAll('.raindrop');
+            raindrops.forEach(drop => drop.remove());
         }
 
         // Change image to success GIF
