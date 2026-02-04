@@ -151,12 +151,13 @@ document.addEventListener('DOMContentLoaded', () => {
             raindrops.forEach(drop => drop.remove());
         }
 
-        // --- Start Music with Fade-in (0.5s delay) ---
-        if (!musicStarted && bgMusic) {
+        // --- Start/Replay Music with Fade-in (0.5s delay) ---
+        if (bgMusic) {
+            bgMusic.pause();
+            bgMusic.currentTime = 0;
             setTimeout(() => {
                 fadeInAudio(bgMusic, 3500);
             }, 500);
-            musicStarted = true;
         }
 
         // Change image to success GIF
