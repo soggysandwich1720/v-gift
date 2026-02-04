@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fade in audio helper
     function fadeInAudio(audio, duration = 3000) {
         audio.volume = 0;
-        audio.play().catch(e => console.log("Music play blocked by browser:", e));
 
         const start = performance.now();
         const tick = (now) => {
@@ -154,6 +153,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (bgMusic) {
             bgMusic.pause();
             bgMusic.currentTime = 0;
+            bgMusic.volume = 0;
+            bgMusic.play().catch(e => console.log("Music play blocked by browser:", e));
+
             setTimeout(() => {
                 fadeInAudio(bgMusic, 3500);
             }, 500);
@@ -236,8 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const explorerSubText = document.querySelector('.explorer-sub-text');
 
         let currentStageIndex = 0;
-        let musicStarted = false;
-        const bgMusic = document.getElementById('bgm');
+        // bgMusic is globally available
 
         const explorerStages = [
             { mainText: "Hey Are You There?", subText: "Click On The Heart Sign To Explore More" },
